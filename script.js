@@ -88,6 +88,7 @@ function updateFromBinary(){
         previousHexadecimalValue = hexadecimal.value;
     } else {
         // Se l'input è invalido
+        console.log("hai inserito " + binary.value +" carattere non valido")
         binary.value = previousBinaryValue; // Ripristina il valore precedente
     }
 }
@@ -104,6 +105,7 @@ function updateFromOctal(){
         previousHexadecimalValue = hexadecimal.value;
     } else {
         // Se l'input è invalido
+        console.log("hai inserito " + octal.value +" carattere non valido")
         octal.value = previousOctalValue; // Ripristina il valore precedente
     }
 
@@ -122,6 +124,7 @@ function updateFromHexadecimal(){
             previousOctalValue = octal.value;
         } else {
             // Se l'input è invalido
+            console.log("hai inserito " + hexadecimal.value +" carattere non valido")
             hexadecimal.value = previousHexadecimalValue; // Ripristina il valore precedente
         }
 }
@@ -148,10 +151,27 @@ minus.forEach(function(button){
 })
 let info = document.querySelectorAll(".info")
 let close = document.querySelectorAll(".close")
-let modalDecimal = document.querySelector("#modal-decimal")
-info[0].addEventListener("click", ()=>{
-    modalDecimal.showModal()
-})
-close[0].addEventListener("click", ()=>{
-    modalDecimal.close()
-})
+let modal = document.querySelectorAll(".modal")
+
+for(let i = 0; i < info.length; i++){
+    info[i].addEventListener("click", ()=>{
+        modal[i].showModal()
+    })
+    close[i].addEventListener("click", ()=>{
+   
+        modal[i].setAttribute("closing", "");
+    
+        modal[i].addEventListener(
+          "animationend",
+          () => {
+            modal[i].removeAttribute("closing");
+            modal[i].close();
+          },
+          { once: true }
+        );
+    })
+}
+
+
+
+
